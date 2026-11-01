@@ -122,6 +122,26 @@ export const createApiKeyColumns = ({
     ),
   },
   {
+    key: "externalAccess",
+    label: t("api_keys_page.external_access_label"),
+    width: "w-[144px] min-w-[144px]",
+    render: (row) => (
+      <span
+        className={
+          row["external-access"]
+            ? "text-emerald-600 dark:text-emerald-400"
+            : "text-slate-500 dark:text-white/50"
+        }
+      >
+        {t(
+          row["external-access"]
+            ? "api_keys_page.external_access_enabled"
+            : "api_keys_page.external_access_disabled",
+        )}
+      </span>
+    ),
+  },
+  {
     key: "name",
     label: t("api_keys_page.col_name"),
     width: "w-[120px] min-w-[120px]",

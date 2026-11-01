@@ -5,6 +5,7 @@ export interface ApiKeyEntry {
   key: string;
   name?: string;
   disabled?: boolean;
+  "external-access"?: boolean;
   "daily-limit"?: number;
   "total-quota"?: number;
   "spending-limit"?: number;

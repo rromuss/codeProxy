@@ -1,4 +1,10 @@
 {
+  "api_keys_page": {
+    "external_access_label": "Внешний доступ",
+    "external_access_description": "Разрешить ключ на публичном API. Нужны явно выбранные модель, канал и положительные лимиты запросов. Управление остаётся закрытым.",
+    "external_access_enabled": "Разрешён",
+    "external_access_disabled": "Закрыт"
+  },
   "common": {
     "login": "Войти",
     "logout": "Выйти",

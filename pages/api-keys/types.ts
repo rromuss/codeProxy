@@ -1,5 +1,6 @@
 export interface ApiKeyFormValues {
   name: string;
+  externalAccess: boolean;
   key: string;
   permissionProfileId: string;
   dailyLimit: string;

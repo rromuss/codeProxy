@@ -1,0 +1,26 @@
+{
+  "profile": "product-admin",
+  "sourceRoots": [
+    "pages/api-keys"
+  ],
+  "locale": "en",
+  "canonicalMap": "UX-CONTRACT.md",
+  "requiredCapabilities": [
+    "Form",
+    "Select/Listbox",
+    "Table Selection",
+    "Toast",
+    "CRUD"
+  ],
+  "ownership": {
+    "Select/Listbox": "authored"
+  },
+  "commands": {
+    "unit": "bun run test:ci",
+    "build": "bun run build"
+  },
+  "evidence": {
+    "crudFullFlow": "pages/api-keys/__tests__/ApiKeysPage.test.tsx",
+    "failurePaths": "pages/api-keys/__tests__/ApiKeysPage.test.tsx"
+  }
+}

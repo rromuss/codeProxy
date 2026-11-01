@@ -2943,6 +2943,11 @@
     "model_use_custom": "使用“{{value}}”"
   },
   "api_keys_page": {
+    "external_access_label": "外部访问",
+    "external_access_description": "允许此密钥访问公共 API。需要明确选择模型、渠道和正数请求限额。管理界面保持私有。",
+    "external_access_enabled": "已允许",
+    "external_access_disabled": "已关闭",
+
     "title": "API 密钥管理",
     "description": "创建和管理 API 密钥，并为每个密钥绑定可复用的权限配置。",
     "no_keys": "暂无 API 密钥",

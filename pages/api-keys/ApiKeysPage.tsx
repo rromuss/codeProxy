@@ -257,6 +257,7 @@ export function ApiKeysPage() {
       const newEntry: ApiKeyEntry = {
         key: form.key.trim(),
         name: form.name.trim(),
+        "external-access": form.externalAccess,
         "created-at": new Date().toISOString(),
       };
       const profiledEntry = applyApiKeyPermissionProfile(
@@ -283,6 +284,7 @@ export function ApiKeysPage() {
     const entry = entries[index];
     const next = {
       name: entry.name || "",
+      externalAccess: entry["external-access"] ?? false,
       key: entry.key,
       permissionProfileId: resolveEntryPermissionProfileId(entry, permissionProfiles),
       dailyLimit: entry["daily-limit"]?.toString() || "",
@@ -321,6 +323,7 @@ export function ApiKeysPage() {
         value: {
           ...(newKey !== originalKey ? { key: newKey } : {}),
           name: form.name.trim(),
+          "external-access": form.externalAccess,
           ...(form.permissionProfileId === CUSTOM_PERMISSION_PROFILE_ID
             ? {
                 "permission-profile-id": entries[editIndex]["permission-profile-id"] ?? "",

@@ -57,6 +57,7 @@ export function ApiKeyFormModal({
         editMode={editMode}
         permissionProfileOptions={permissionProfileOptions}
         regenerateKey={regenerateKey}
+        saving={saving}
       />
     </Modal>
   );

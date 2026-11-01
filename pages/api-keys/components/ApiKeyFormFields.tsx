@@ -1,3 +1,4 @@
+import { ToggleSwitch } from "@code-proxy/ui";
 import { RefreshCw } from "lucide-react";
 import { Button } from "@code-proxy/ui";
 import { TextInput } from "@code-proxy/ui";
@@ -11,16 +12,25 @@ export function ApiKeyFormFields({
   editMode,
   permissionProfileOptions,
   regenerateKey,
+  saving = false,
 }: {
   t: (key: string, options?: Record<string, unknown>) => string;
   form: ApiKeyFormValues;
   setForm: React.Dispatch<React.SetStateAction<ApiKeyFormValues>>;
   editMode: boolean;
+  saving?: boolean;
   permissionProfileOptions: SelectOption[];
   regenerateKey: () => void;
 }) {
   return (
     <div className="space-y-4">
+      <ToggleSwitch
+        checked={form.externalAccess}
+        onCheckedChange={(externalAccess) => setForm((prev) => ({ ...prev, externalAccess }))}
+        label={t("api_keys_page.external_access_label")}
+        description={t("api_keys_page.external_access_description")}
+        disabled={saving}
+      />
       <div>
         <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-white/80">
           {t("api_keys_page.form_name_label")} <span className="text-rose-500">*</span>

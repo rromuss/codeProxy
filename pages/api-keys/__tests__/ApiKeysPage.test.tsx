@@ -220,6 +220,17 @@ vi.mock("@code-proxy/ui", async (importOriginal) => ({
   ),
 }));
 
+const renderExternalKeyPage = () =>
+  render(
+    <MemoryRouter>
+      <ThemeProvider>
+        <ToastProvider>
+          <ApiKeysPage />
+        </ToastProvider>
+      </ThemeProvider>
+    </MemoryRouter>,
+  );
+
 describe("ApiKeysPage", () => {
   beforeEach(async () => {
     await i18n.changeLanguage("en");
@@ -250,6 +261,37 @@ describe("ApiKeysPage", () => {
     mocks.getVertexConfigs.mockClear();
     mocks.getOpenAIProviders.mockClear();
     mocks.apiClientGet.mockClear();
+  });
+
+  test("external access defaults off and can be enabled explicitly when creating", async () => {
+    renderExternalKeyPage();
+    await screen.findByText("Existing Key");
+    await userEvent.click(screen.getByRole("button", { name: /create key/i }));
+    const control = screen.getByRole("switch", { name: "External access" });
+    expect(control).toHaveAttribute("aria-checked", "false");
+    await userEvent.type(screen.getAllByPlaceholderText(/team-a/i).at(-1)!, "Laptop");
+    await userEvent.click(control);
+    await userEvent.click(screen.getByRole("button", { name: /^Create$/i }));
+    await waitFor(() => expect(mocks.apiKeyEntriesReplace).toHaveBeenCalled());
+    expect(state.entries.at(-1)).toMatchObject({ name: "Laptop", "external-access": true });
+    expect(state.entries[0]["external-access"]).toBeUndefined();
+  });
+
+  test("external edit is persisted and a failed save preserves the entered switch", async () => {
+    state.entries[0]["external-access"] = true;
+    renderExternalKeyPage();
+    await screen.findByText("Existing Key");
+    await userEvent.click(screen.getAllByRole("button", { name: "Edit" })[0]!);
+    const control = screen.getByRole("switch", { name: "External access" });
+    expect(control).toHaveAttribute("aria-checked", "true");
+    await userEvent.click(control);
+    mocks.apiKeyEntriesUpdate.mockRejectedValueOnce(new Error("fixture save failure"));
+    await userEvent.click(screen.getByRole("button", { name: /^Save$/i }));
+    await screen.findAllByText("fixture save failure");
+    expect(control).toHaveAttribute("aria-checked", "false");
+    expect(state.entries[0]["external-access"]).toBe(true);
+    await userEvent.click(screen.getByRole("button", { name: /^Save$/i }));
+    await waitFor(() => expect(state.entries[0]["external-access"]).toBe(false));
   });
 
   test("creates, edits, and deletes API key entries", async () => {

@@ -2674,6 +2674,11 @@
     "model_use_custom": "Use \"{{value}}\""
   },
   "api_keys_page": {
+    "external_access_label": "External access",
+    "external_access_description": "Allow this key through the public API. Requires an explicit model, channel and positive request limits. Management stays private.",
+    "external_access_enabled": "Allowed",
+    "external_access_disabled": "Closed",
+
     "title": "API Keys Management",
     "description": "Create and manage API Keys, then bind each key to a reusable permission config.",
     "no_keys": "No API Keys",
